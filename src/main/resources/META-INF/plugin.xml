@@ -1,0 +1,24 @@
+<idea-plugin>
+    <id>galilea.timetracker</id>
+    <name>Timetracker</name>
+    <vendor email="orangeowlgalilea@gmail.com">me</vendor>
+
+    <description>Time tracker for jira and wakatime. Blablabla</description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
+
+
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="components.TimeTracker"/>
+    </extensions>
+
+    <actions>
+        <action id="StartAction"
+                class="actions.MenuAction"
+                text="StartAction"
+                description="StartAction"/>
+    </actions>
+</idea-plugin>
