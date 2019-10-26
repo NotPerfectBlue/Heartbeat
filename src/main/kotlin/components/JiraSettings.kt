@@ -23,7 +23,7 @@ class JiraSettings : PersistentStateComponent<Credentials> {
 
     private var credentials: Credentials? = null
 
-    private var key: String? = null
+    var key: String? = null
         get() {
             val reader = FileReader("hostname.txt")
             val hostname = reader.readText()

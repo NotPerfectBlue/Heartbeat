@@ -3,6 +3,7 @@ package actions
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.PlatformDataKeys
+import ui.CredentialsDialog
 
 class MenuAction : AnAction() {
 

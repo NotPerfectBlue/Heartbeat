@@ -1,6 +1,6 @@
 <idea-plugin>
-    <id>galilea.timetracker</id>
-    <name>Timetracker</name>
+    <id>galilea.heartbeat</id>
+    <name>Heartbeat</name>
     <vendor email="orangeowlgalilea@gmail.com">me</vendor>
 
     <description>Time tracker for jira logging automation</description>
@@ -16,7 +16,7 @@
 
 
     <extensions defaultExtensionNs="com.intellij">
-        <postStartupActivity implementation="components.TimeTracker"/>
+        <postStartupActivity implementation="components.Heartbeat"/>
     </extensions>
 
     <actions>

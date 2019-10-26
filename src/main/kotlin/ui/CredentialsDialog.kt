@@ -1,4 +1,4 @@
-package actions
+package ui
 
 import com.intellij.credentialStore.Credentials
 import com.intellij.openapi.components.ServiceManager
@@ -6,7 +6,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.layout.panel
 import components.JiraSettings
-import rest.JiraClient
+import singletones.JiraClient
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPasswordField

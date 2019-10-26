@@ -1,4 +1,4 @@
-package rest
+package singletones
 
 import com.atlassian.jira.rest.client.api.JiraRestClient
 import com.atlassian.jira.rest.client.api.domain.input.WorklogInput
