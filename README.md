@@ -1,1 +1,1 @@
-timetracker
+Simple timetracker for jira.
