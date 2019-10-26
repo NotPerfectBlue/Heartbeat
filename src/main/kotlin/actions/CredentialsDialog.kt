@@ -1,15 +1,12 @@
 package actions
 
 import com.intellij.credentialStore.Credentials
-import com.intellij.openapi.application.Application
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.layout.panel
-import com.sun.org.apache.xpath.internal.operations.Bool
 import components.JiraSettings
 import rest.JiraClient
-import java.awt.Color
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPasswordField
@@ -54,10 +51,11 @@ class CredentialsDialog(project: Project?) : DialogWrapper(project, true) {
             JiraClient.init(
                 hostname.text,
                 username.text,
-                password.password.toString()
+                password.text
             )
             true
         } catch (e: Throwable) {
+            e.printStackTrace()
             false
         }
     }
@@ -75,7 +73,7 @@ class CredentialsDialog(project: Project?) : DialogWrapper(project, true) {
                 loadState(
                     Credentials(
                         username.text,
-                        password.password
+                        password.text
                     )
                 )
             }
