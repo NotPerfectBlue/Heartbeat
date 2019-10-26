@@ -3,12 +3,16 @@
     <name>Timetracker</name>
     <vendor email="orangeowlgalilea@gmail.com">me</vendor>
 
-    <description>Time tracker for jira and wakatime. Blablabla</description>
+    <description>Time tracker for jira logging automation</description>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.androidstudio</depends>
+
+    <application-components>
+        <component>
+            <implementation-class>components.JiraSettings</implementation-class>
+        </component>
+    </application-components>
 
 
     <extensions defaultExtensionNs="com.intellij">

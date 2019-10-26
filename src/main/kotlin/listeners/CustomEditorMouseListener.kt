@@ -5,12 +5,14 @@ import com.intellij.openapi.editor.event.EditorMouseListener
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import org.joda.time.DateTime
 
 class CustomEditorMouseListener : EditorMouseListener {
     override fun mousePressed(editorMouseEvent: EditorMouseEvent) {
         val instance = FileDocumentManager.getInstance()
         val file = instance.getFile(editorMouseEvent.editor.document)
         val project = editorMouseEvent.editor.project
+        println("onMousePressed ${DateTime()}")
     }
 
     override fun mouseClicked(editorMouseEvent: EditorMouseEvent) {}

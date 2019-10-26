@@ -8,6 +8,6 @@ class MenuAction : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.getData(PlatformDataKeys.PROJECT)
-        MenuDialog(project).show()
+        CredentialsDialog(project).show()
     }
 }
