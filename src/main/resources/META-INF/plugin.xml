@@ -18,7 +18,9 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity implementation="Heartbeat"/>
+
         <projectService serviceImplementation="components.GitService"/>
+        <applicationService serviceImplementation="components.TimeStorage"/>
     </extensions>
 
     <actions>

@@ -2,15 +2,11 @@ package listeners
 
 import com.intellij.openapi.editor.event.EditorMouseEvent
 import com.intellij.openapi.editor.event.EditorMouseListener
-import com.intellij.openapi.fileEditor.FileDocumentManager
-import org.joda.time.DateTime
+import singletones.TickerStorage
 
 class CustomEditorMouseListener : EditorMouseListener {
     override fun mousePressed(editorMouseEvent: EditorMouseEvent) {
-        val instance = FileDocumentManager.getInstance()
-        val file = instance.getFile(editorMouseEvent.editor.document)
-        val project = editorMouseEvent.editor.project
-        println("onMousePressed ${DateTime()}")
+        TickerStorage.needInrease = true
     }
 
     override fun mouseClicked(editorMouseEvent: EditorMouseEvent) {}

@@ -11,6 +11,9 @@ import listeners.CustomDocumentListener
 import listeners.CustomEditorMouseListener
 import listeners.CustomSaveListener
 import listeners.CustomVisibleAreaListener
+import org.joda.time.DateTime
+import singletones.JiraClient
+import singletones.TickerStorage
 import ui.CredentialsDialog
 
 class Heartbeat : StartupActivity {
@@ -21,13 +24,26 @@ class Heartbeat : StartupActivity {
 
             initJira(project)
 
+            initListeners()
+
             TimeStorage.getInstance(project)
             GitService.getInstance(project)
 
-            initListeners()
+            TickerStorage.increaseTime = { taskName ->
+                val timeStorage = TimeStorage.getInstance(project)
+                timeStorage.increase(taskName)
+            }
 
             initShutdownListener {
-                //                JiraClient.logTime()
+
+                val timeStorage = TimeStorage.getInstance(project)
+
+                for (entry in timeStorage) {
+//                    JiraClient.logTime(entry.key, DateTime.now(), entry.value)
+                    println("${entry.key}, ${entry.value}")
+                }
+
+                timeStorage.clear()
             }
         }
     }

@@ -5,13 +5,12 @@ import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.FileDocumentManagerListener
 import com.intellij.openapi.vfs.VirtualFile
 import org.joda.time.DateTime
+import singletones.TickerStorage
 
 class CustomSaveListener : FileDocumentManagerListener {
 
     override fun beforeDocumentSaving(document: Document) {
-        val instance = FileDocumentManager.getInstance()
-        val file = instance.getFile(document)
-        println("onDocumentSaved ${file?.name} ${DateTime()}")
+        TickerStorage.needInrease = true
     }
 
     override fun beforeAllDocumentsSaving() {}

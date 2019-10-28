@@ -16,6 +16,8 @@ class GitService(project: Project) {
 
     private var gitRepository: GitRepository? = null
 
+    private val timeStorage = TimeStorage.getInstance(project)
+
     private var currentBranch: GitLocalBranch? = null
         set(value) {
             if (value != null && field != value) {
@@ -25,9 +27,17 @@ class GitService(project: Project) {
         }
 
     private val onCheckout: (String) -> Unit = { branchName ->
+
         if (branchName.containsJiraTaskName()) {
+
             val taskName = branchName.extractJiraTaskName()
-            TickerStorage[taskName] = Timer(taskName)
+
+            timeStorage.addIfAbsent(taskName)
+
+            TickerStorage.apply {
+                addIfAbsent(taskName)
+                start(taskName)
+            }
         }
     }
 
