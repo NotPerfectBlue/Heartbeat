@@ -66,7 +66,7 @@ class CredentialsDialog(project: Project?) : DialogWrapper(project, true) {
 
             setErrorText("")
 
-            val jiraSettings = ServiceManager.getService(JiraSettings::class.java)
+            val jiraSettings = JiraSettings.getInstance()
 
             jiraSettings.apply {
                 writeHostname(hostname.text)

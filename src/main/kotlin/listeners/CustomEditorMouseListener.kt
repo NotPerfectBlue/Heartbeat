@@ -3,8 +3,6 @@ package listeners
 import com.intellij.openapi.editor.event.EditorMouseEvent
 import com.intellij.openapi.editor.event.EditorMouseListener
 import com.intellij.openapi.fileEditor.FileDocumentManager
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.VirtualFile
 import org.joda.time.DateTime
 
 class CustomEditorMouseListener : EditorMouseListener {

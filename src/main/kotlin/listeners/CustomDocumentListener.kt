@@ -1,11 +1,9 @@
 
 package listeners
 
-import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.event.DocumentEvent
 import com.intellij.openapi.editor.event.DocumentListener
 import com.intellij.openapi.fileEditor.FileDocumentManager
-import com.intellij.openapi.vfs.VirtualFile
 import org.joda.time.DateTime
 
 class CustomDocumentListener : DocumentListener {

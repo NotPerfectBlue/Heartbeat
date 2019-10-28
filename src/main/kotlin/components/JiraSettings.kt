@@ -4,10 +4,8 @@ import com.intellij.credentialStore.CredentialAttributes
 import com.intellij.credentialStore.Credentials
 import com.intellij.credentialStore.generateServiceName
 import com.intellij.ide.passwordSafe.PasswordSafe
-import com.intellij.openapi.components.PersistentStateComponent
-import com.intellij.openapi.components.State
-import com.intellij.openapi.components.Storage
-import com.intellij.openapi.components.StoragePathMacros
+import com.intellij.openapi.components.*
+import com.intellij.openapi.project.Project
 import java.io.FileReader
 import java.io.FileWriter
 
@@ -27,16 +25,19 @@ class JiraSettings : PersistentStateComponent<Credentials> {
             return field ?: hostname
         }
 
-    fun writeHostname(hostname: String) {
+    fun writeHostname(hostname: String?) {
 
         key = hostname
-
         val file = FileWriter(keyFileName)
-        file.apply {
-            flush()
-            write(hostname)
-            close()
-        }
+
+            file.apply {
+                flush()
+
+                if(hostname != null) {
+                    write(hostname)
+                }
+                close()
+            }
     }
 
     override fun getState(): Credentials? {
@@ -60,6 +61,14 @@ class JiraSettings : PersistentStateComponent<Credentials> {
     companion object {
         private const val keyFileName = "hostname.txt"
         private const val subsystemName = "TimeTracker"
+
+        fun getInstance(project: Project): JiraSettings {
+            return ServiceManager.getService(project, JiraSettings::class.java)
+        }
+
+        fun getInstance(): JiraSettings {
+            return ServiceManager.getService(JiraSettings::class.java)
+        }
     }
 
 }
