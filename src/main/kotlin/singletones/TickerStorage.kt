@@ -10,7 +10,7 @@ object TickerStorage : ConcurrentHashMap<String, Timer>() {
         set(value) {
             field = value
             if (period == 1L && value) {
-                currentTaskName?.let { rerun(it) }
+                currentTaskName?.let { rerun(it, false) }
             }
         }
 
@@ -28,9 +28,9 @@ object TickerStorage : ConcurrentHashMap<String, Timer>() {
     val countdown: (String) -> Unit =  { taskName ->
         if (period == 1L) {
             if (!needInrease) {
-                increase(taskName)
+                cancel()
             } else {
-                rerun(taskName)
+                rerun(taskName, true)
             }
         }
         period--
@@ -53,14 +53,17 @@ object TickerStorage : ConcurrentHashMap<String, Timer>() {
         }
     }
 
-    private fun increase(taskName: String) {
+    private fun cancel() {
         this[currentTaskName]?.cancel()
-        increaseTime(taskName)
     }
 
-    private fun rerun(taskName: String) {
+    private fun rerun(taskName: String, needLog: Boolean = false) {
         period = 60
         needInrease = false
+
+        if (needLog) {
+            increaseTime(taskName)
+        }
 
         this[taskName] = Timer(taskName)
         currentTaskName = taskName
