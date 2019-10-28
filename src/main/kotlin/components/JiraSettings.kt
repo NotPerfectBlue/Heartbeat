@@ -1,8 +1,5 @@
 package components
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.google.gson.stream.JsonReader
 import com.intellij.credentialStore.CredentialAttributes
 import com.intellij.credentialStore.Credentials
 import com.intellij.credentialStore.generateServiceName
@@ -17,7 +14,7 @@ import java.io.FileWriter
 @State(
     name = "JiraSettings",
     storages = [
-        Storage(StoragePathMacros.WORKSPACE_FILE)
+        Storage(StoragePathMacros.CACHE_FILE)
     ])
 class JiraSettings : PersistentStateComponent<Credentials> {
 
@@ -25,7 +22,7 @@ class JiraSettings : PersistentStateComponent<Credentials> {
 
     var key: String? = null
         get() {
-            val reader = FileReader("hostname.txt")
+            val reader = FileReader(keyFileName)
             val hostname = reader.readText()
             return field ?: hostname
         }
@@ -34,7 +31,7 @@ class JiraSettings : PersistentStateComponent<Credentials> {
 
         key = hostname
 
-        val file = FileWriter("hostname.txt")
+        val file = FileWriter(keyFileName)
         file.apply {
             flush()
             write(hostname)
@@ -57,7 +54,12 @@ class JiraSettings : PersistentStateComponent<Credentials> {
     }
 
     private fun createCredentialAttributes(): CredentialAttributes {
-        return CredentialAttributes(generateServiceName("TimeTracker", key!!))
+        return CredentialAttributes(generateServiceName(subsystemName, key!!))
+    }
+
+    companion object {
+        private const val keyFileName = "hostname.txt"
+        private const val subsystemName = "TimeTracker"
     }
 
 }

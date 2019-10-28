@@ -5,6 +5,7 @@
 
     <description>Time tracker for jira logging automation</description>
 
+    <depends>Git4Idea</depends>
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.androidstudio</depends>
 
@@ -20,9 +21,9 @@
     </extensions>
 
     <actions>
-        <action id="StartAction"
+        <action id="EditCredsAction"
                 class="actions.MenuAction"
-                text="StartAction"
-                description="StartAction"/>
+                text="Edit credentials"
+                description="Edit credentials"/>
     </actions>
 </idea-plugin>

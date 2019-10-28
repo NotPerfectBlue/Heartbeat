@@ -9,15 +9,18 @@ import com.atlassian.jira.rest.client.api.domain.Issue
 
 object JiraClient {
 
-    private lateinit var jiraRestClient: JiraRestClient
+    private var jiraRestClient: JiraRestClient? = null
 
+    @Synchronized
     fun init(
         hostname: String,
         username: String,
         password: String
     ) {
-        jiraRestClient = AsynchronousJiraRestClientFactory()
-            .createWithBasicHttpAuthentication(uri(hostname), username, password)
+        if (jiraRestClient == null) {
+            jiraRestClient = AsynchronousJiraRestClientFactory()
+                .createWithBasicHttpAuthentication(uri(hostname), username, password)
+        }
     }
 
     fun logTime(issueKey: String, startDate: DateTime, timeInMinutes: Int) {
@@ -26,8 +29,8 @@ object JiraClient {
 
         issue?.let {
             jiraRestClient
-                .issueClient
-                .addWorklog(it.worklogUri, WorklogInput.create(
+                ?.issueClient
+                ?.addWorklog(it.worklogUri, WorklogInput.create(
                     it.worklogUri,
                     "",
                     startDate,
@@ -40,9 +43,9 @@ object JiraClient {
 
     private fun getIssue(issueKey: String): Issue? {
         return jiraRestClient
-            .issueClient
-            .getIssue(issueKey)
-            .claim()
+            ?.issueClient
+            ?.getIssue(issueKey)
+            ?.claim()
     }
 
 }
