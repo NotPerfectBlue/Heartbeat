@@ -6,6 +6,7 @@ import com.intellij.credentialStore.generateServiceName
 import com.intellij.ide.passwordSafe.PasswordSafe
 import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
+import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
 
@@ -20,6 +21,11 @@ class JiraSettings : PersistentStateComponent<Credentials> {
 
     var key: String? = null
         get() {
+            val keyFile = File(keyFileName)
+
+            if (!keyFile.exists())
+                keyFile.createNewFile()
+
             val reader = FileReader(keyFileName)
             val hostname = reader.readText()
             return field ?: hostname

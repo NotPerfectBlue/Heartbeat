@@ -52,7 +52,7 @@ class Heartbeat : StartupActivity {
 
         val jiraSettings = JiraSettings.getInstance(project)
 
-        if (jiraSettings.key == null) {
+        if (jiraSettings.key.isNullOrEmpty()) {
             val apiKey = CredentialsDialog(project)
             apiKey.show()
         }

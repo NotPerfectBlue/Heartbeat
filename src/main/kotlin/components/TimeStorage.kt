@@ -44,7 +44,6 @@ class TimeStorage : PersistentStateComponent<TimeStorage> {
 
     override fun loadState(state: TimeStorage) {
         XmlSerializerUtil.copyBean(state, this)
-        TickerStorage.addIfAbsent(timeMap.keys.asSequence())
     }
 
     companion object {

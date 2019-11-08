@@ -34,10 +34,7 @@ class GitService(project: Project) {
 
             timeStorage.addIfAbsent(taskName)
 
-            TickerStorage.apply {
-                addIfAbsent(taskName)
-                start(taskName)
-            }
+            TickerStorage.start(taskName)
         }
     }
 

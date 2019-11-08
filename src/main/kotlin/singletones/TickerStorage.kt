@@ -1,28 +1,32 @@
 package singletones
 
 import java.util.*
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.concurrent.scheduleAtFixedRate
 
-object TickerStorage : ConcurrentHashMap<String, Timer>() {
+object TickerStorage {
 
     var needInrease: Boolean = false
         set(value) {
             field = value
             if (period == 1L && value) {
-                currentTaskName?.let { rerun(it, false) }
+                currentTaskName?.let { restart(it, false) }
             }
         }
 
     lateinit var increaseTime: (String) -> Unit
 
-    private var period: Long = 60
     private var currentTaskName: String? = null
         set(value) {
             field = value
             value?.let { start(it) }
         }
 
+    private var currentTimer: Timer? = null
+        get() {
+            return field ?: Timer(currentTaskName)
+        }
+
+    private var period: Long = 60
     private const val delay: Long = 60
 
     val countdown: (String) -> Unit =  { taskName ->
@@ -30,34 +34,22 @@ object TickerStorage : ConcurrentHashMap<String, Timer>() {
             if (!needInrease) {
                 cancel()
             } else {
-                rerun(taskName, true)
+                restart(taskName, true)
             }
         }
         period--
     }
 
     fun start(taskName: String) {
-        val timer = this[taskName]
-        timer?.scheduleAtFixedRate(period, delay) { countdown(taskName) }
-    }
-
-    fun addIfAbsent(taskName: String) {
-        if (!containsKey(taskName)) {
-            this[taskName] = Timer(taskName)
-        }
-    }
-
-    fun addIfAbsent(tasks: Sequence<String>) {
-        for (task in tasks) {
-            addIfAbsent(task)
-        }
+        currentTaskName = taskName
+        currentTimer?.scheduleAtFixedRate(period, delay) { countdown(taskName) }
     }
 
     private fun cancel() {
-        this[currentTaskName]?.cancel()
+        currentTimer?.cancel()
     }
 
-    private fun rerun(taskName: String, needLog: Boolean = false) {
+    private fun restart(taskName: String, needLog: Boolean = false) {
         period = 60
         needInrease = false
 
@@ -65,7 +57,6 @@ object TickerStorage : ConcurrentHashMap<String, Timer>() {
             increaseTime(taskName)
         }
 
-        this[taskName] = Timer(taskName)
         currentTaskName = taskName
     }
 }
