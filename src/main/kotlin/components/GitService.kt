@@ -10,7 +10,6 @@ import git4idea.repo.GitRepository
 import git4idea.repo.GitRepositoryChangeListener
 import git4idea.repo.GitRepositoryManager
 import singletones.TickerStorage
-import java.util.*
 
 class GitService(project: Project) {
 
@@ -34,13 +33,15 @@ class GitService(project: Project) {
 
             timeStorage.addIfAbsent(taskName)
 
-            TickerStorage.start(taskName)
+            TickerStorage.currentTaskName = taskName
         }
     }
 
     init {
 
-        gitRepository = GitRepositoryManager.getInstance(project).repositories[0]
+        val repos = GitRepositoryManager.getInstance(project).repositories
+
+        gitRepository = if (repos.isNotEmpty()) repos[0] else null
         gitRepository?.let {
             currentBranch = it.currentBranch
         }

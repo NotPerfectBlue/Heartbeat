@@ -1,16 +1,14 @@
 package listeners
 
 import com.intellij.openapi.editor.Document
-import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.FileDocumentManagerListener
 import com.intellij.openapi.vfs.VirtualFile
-import org.joda.time.DateTime
 import singletones.TickerStorage
 
 class CustomSaveListener : FileDocumentManagerListener {
 
     override fun beforeDocumentSaving(document: Document) {
-        TickerStorage.needInrease = true
+        TickerStorage.needIncrease = true
     }
 
     override fun beforeAllDocumentsSaving() {}

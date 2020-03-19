@@ -9,6 +9,6 @@ class CustomDocumentListener : DocumentListener {
     override fun beforeDocumentChange(documentEvent: DocumentEvent) {}
 
     override fun documentChanged(documentEvent: DocumentEvent) {
-        TickerStorage.needInrease = true
+        TickerStorage.needIncrease = true
     }
 }

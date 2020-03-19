@@ -3,11 +3,9 @@
     <name>Heartbeat</name>
     <vendor email="orangeowlgalilea@gmail.com">me</vendor>
 
-    <description>Time tracker for jira logging automation</description>
+    <description>Simple dumb plugin for jira logging automation</description>
 
     <depends>Git4Idea</depends>
-    <depends>com.intellij.modules.lang</depends>
-    <depends>com.intellij.modules.androidstudio</depends>
 
     <application-components>
         <component>

@@ -5,7 +5,7 @@ import kotlin.concurrent.scheduleAtFixedRate
 
 object TickerStorage {
 
-    var needInrease: Boolean = false
+    var needIncrease: Boolean = false
         set(value) {
             field = value
             if (period == 1L && value) {
@@ -13,13 +13,13 @@ object TickerStorage {
             }
         }
 
-    lateinit var increaseTime: (String) -> Unit
-
-    private var currentTaskName: String? = null
+    var currentTaskName: String? = null
         set(value) {
             field = value
             value?.let { start(it) }
         }
+
+    lateinit var increaseTime: (String) -> Unit
 
     private var currentTimer: Timer? = null
         get() {
@@ -27,11 +27,12 @@ object TickerStorage {
         }
 
     private var period: Long = 60
+
     private const val delay: Long = 60
 
-    val countdown: (String) -> Unit =  { taskName ->
+    private fun countdown(taskName: String) {
         if (period == 1L) {
-            if (!needInrease) {
+            if (!needIncrease) {
                 cancel()
             } else {
                 restart(taskName, true)
@@ -40,8 +41,7 @@ object TickerStorage {
         period--
     }
 
-    fun start(taskName: String) {
-        currentTaskName = taskName
+    private fun start(taskName: String) {
         currentTimer?.scheduleAtFixedRate(period, delay) { countdown(taskName) }
     }
 
@@ -50,8 +50,9 @@ object TickerStorage {
     }
 
     private fun restart(taskName: String, needLog: Boolean = false) {
+
         period = 60
-        needInrease = false
+        needIncrease = false
 
         if (needLog) {
             increaseTime(taskName)

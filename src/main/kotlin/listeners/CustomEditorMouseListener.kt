@@ -6,7 +6,7 @@ import singletones.TickerStorage
 
 class CustomEditorMouseListener : EditorMouseListener {
     override fun mousePressed(editorMouseEvent: EditorMouseEvent) {
-        TickerStorage.needInrease = true
+        TickerStorage.needIncrease = true
     }
 
     override fun mouseClicked(editorMouseEvent: EditorMouseEvent) {}

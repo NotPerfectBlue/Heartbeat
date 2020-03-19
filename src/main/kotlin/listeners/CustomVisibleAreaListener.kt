@@ -6,6 +6,6 @@ import singletones.TickerStorage
 
 class CustomVisibleAreaListener : VisibleAreaListener {
     override fun visibleAreaChanged(visibleAreaEvent: VisibleAreaEvent) {
-        TickerStorage.needInrease = true
+        TickerStorage.needIncrease = true
     }
 }

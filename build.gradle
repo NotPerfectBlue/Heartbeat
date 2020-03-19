@@ -23,8 +23,10 @@ dependencies {
     implementation "joda-time:joda-time:2.10.4"
     implementation("com.atlassian.jira:jira-rest-java-client-core:4.0.0") {
         exclude group: 'org.slf4j'
+        dependencies {
+            implementation "com.atlassian.fugue:fugue:2.6.1"
+        }
     }
-    implementation "com.atlassian.fugue:fugue:2.6.1"
 }
 
 compileKotlin {
@@ -35,7 +37,7 @@ compileTestKotlin {
 }
 
 intellij {
-    version '2019.1'
+    version '2019.2'
     plugins 'git4idea'
     alternativeIdePath 'E:\\Android Studio'
 }

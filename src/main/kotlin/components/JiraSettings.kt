@@ -13,7 +13,7 @@ import java.io.FileWriter
 @State(
     name = "JiraSettings",
     storages = [
-        Storage(StoragePathMacros.CACHE_FILE)
+        Storage("trackerSettings.xml")
     ])
 class JiraSettings : PersistentStateComponent<Credentials> {
 
@@ -65,7 +65,7 @@ class JiraSettings : PersistentStateComponent<Credentials> {
     }
 
     companion object {
-        private const val keyFileName = "hostname.txt"
+        private const val keyFileName = "jiraHostName.txt"
         private const val subsystemName = "TimeTracker"
 
         fun getInstance(project: Project): JiraSettings {
